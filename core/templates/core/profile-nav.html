@@ -1,0 +1,43 @@
+<a class="profile-first" id="fav-btn" href="{% url 'profile' %}">
+    <div class="usual-view {% if "favorites" in request.path %}active{% endif %} ">
+        Favorites
+    </div>
+    <div class="mob-view-btns  {% if "favorites" in request.path %}active{% endif %}">
+        <span class="material-icons">favorite_border</span>
+    </div>
+</a>
+<a class="profile-first" id="acc-btn" href="{% url 'profile_info' %}">
+    <div class="usual-view {% if "info" in request.path %}active{% endif %}">
+        Account Information
+    </div>
+    <div class="mob-view-btns {% if "info" in request.path %}active{% endif %}">
+        <span class="material-icons">person_outline</span>
+    </div>
+</a>
+{% if request.user.agent %}
+    <a class="profile-first" id="acc-btn" href="{% url 'profile_msgs' %}">
+        <div class="usual-view {% if "messages" in request.path %}active{% endif %}">
+            Messages
+        </div>
+        <div class="mob-view-btns {% if "messages" in request.path %}active{% endif %}">
+            <span class="material-icons">email</span>
+        </div>
+    </a>
+
+    <a class="profile-first" id="acc-btn" href="{% url 'profile_archive' %}">
+        <div class="usual-view {% if "archive" in request.path %}active{% endif %}">
+            Archive
+        </div>
+        <div class="mob-view-btns {% if "archive" in request.path %}active{% endif %}">
+            <span class="material-icons-outlined">email</span>
+        </div>
+    </a>
+    <a class="profile-first" id="acc-btn" href="{% url 'profile_add_object' %}">
+        <div class="usual-view {% if "add-object" in request.path %}active{% endif %}">
+            Add Object
+        </div>
+        <div class="mob-view-btns {% if "add-object" in request.path %}active{% endif %}">
+            <span class="material-icons-outlined">add_circle_outline</span>
+        </div>
+    </a>
+{% endif %}

@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+{% block title %}
+    Login
+{% endblock %}
+{% block content %}
+    {% load static %}
+    <section class="auth-container shadow">
+        <div id="user-icon">
+            <img src="{% static 'images/sil.png' %}" alt="">
+            <!-- <span class="material-icons">account_circle</span> -->
+        </div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="auth-wrapper">
+
+                <h4>Login</h4>
+                <div class="input-container-auth">
+                    <label for="username" class="material-icons">account_circle</label>
+                    <input id="username" name="username" type="text" placeholder="Email" required>
+                </div>
+                <div class="input-container-auth">
+                    <label for="password" class="material-icons">lock</label>
+
+                    <div class="input-wrapper ">
+                        <input id="password" class="pass" type="password" placeholder="Password" name="password"
+                               required>
+                        <span class="material-icons-outlined visibility">visibility_off</span>
+
+                    </div>
+                </div>
+
+
+                <button type="submit">Log In</button>
+                <div class="remember">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember Me</label>
+                </div>
+                <p>Don't have an account?</p>
+                <a href="{% url 'register' %}">Sign Up</a>
+                <div class="errors">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </section>
+    <script>
+        const visBtn = document.getElementsByClassName("visibility")[0]
+
+        function visibilityChange(btn) {
+            const input = btn.previousElementSibling
+            console.log(input);
+            if (btn.textContent === "visibility") {
+                btn.textContent = "visibility_off"
+                input.type = "password"
+            } else if (btn.textContent === "visibility_off") {
+                btn.textContent = 'visibility'
+                input.type = "text"
+
+            }
+        }
+
+        visBtn.addEventListener("click", function () {
+            visibilityChange(visBtn)
+        })
+
+    </script>
+{% endblock %}

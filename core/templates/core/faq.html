@@ -1,0 +1,94 @@
+{% extends 'main.html' %}
+{% block title %}
+    F.A.Q.
+{% endblock %}
+{% block content %}
+    <section class="about-container shadow">
+        <h4 id="faq-h4">FAQ</h4>
+        <div id="faq">
+            <div class="faq-div">
+                <span>Lorem Ipsum</span>
+                <div class="faq-info closed">
+                    <p>Lorem Ipsum 1</p>
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                    laudantium,
+                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
+                    dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+                    fugit.
+                    <p>Lorem Ipsum 2</p>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                </div>
+
+            </div>
+            <div class="faq-div">
+                <span>Lorem Ipsum</span>
+                <div class="faq-info closed">
+                    <p>Lorem Ipsum 3</p>
+                    Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+                    imperdiet a, venenatis vitae, justo.
+                    <p>Lorem Ipsum 4</p>
+                    Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo
+                    ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
+                    viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
+                    rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+                    Nam eget dui. Etiam rhoncus.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Lorem Ipsum</span>
+                <div class="faq-info closed">
+                    <p>Lorem Ipsum 5</p>
+                    Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+                    imperdiet a, venenatis vitae, justo.
+                    <p>Lorem Ipsum 6</p>
+                    Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo
+                    ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
+                    viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
+                    rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+                    Nam eget dui. Etiam rhoncus.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Lorem Ipsum</span>
+                <div class="faq-info closed">
+                    <p>Lorem Ipsum 7</p>
+                    Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+                    imperdiet a, venenatis vitae, justo.
+                    <p>Lorem Ipsum 8</p>
+                    Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo
+                    ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
+                    viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
+                    rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+                    Nam eget dui. Etiam rhoncus.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Lorem Ipsum</span>
+                <div class="faq-info closed">
+                    <p>Lorem Ipsum 9</p>
+                    Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+                    imperdiet a, venenatis vitae, justo.
+                    <p>Lorem Ipsum 10</p>
+                    Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo
+                    ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
+                    viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque
+                    rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.
+                    Nam eget dui. Etiam rhoncus.
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+    <script>
+        const faq = document.getElementById("faq")
+        const spans = faq.querySelectorAll("span")
+        for (let index = 0; index < spans.length; index++) {
+            const span = spans[index];
+            span.addEventListener('click', function () {
+                span.classList.toggle("active")
+                span.nextElementSibling.classList.toggle("closed")
+            })
+        }
+    </script>
+{% endblock %}

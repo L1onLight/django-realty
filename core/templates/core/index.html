@@ -1,0 +1,142 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <style>
+        main {
+            padding-top: 0;
+        }
+    </style>
+    <section class="bg-img" style="background-image:url({% static 'images/house.jpg' %})">
+        <div class="top-container">
+            <h1>№1 Agency in Warsaw | Berlin</h1>
+            <div class="count-div">
+                <div class="count">
+                    <div class="sat canim">
+                        <span class="material-icons-outlined">
+                                favorite_border
+                            </span>
+                        <h4 id="satisfied">0</h4>
+                    </div>
+                    <br>
+                    <p>Satisfied Clients by Results</p>
+
+                </div>
+                <div class="count">
+                    <div class="sat canim">
+                        <span class="material-icons-outlined home">apartment</span>
+                        <h4>{{ items.count }}</h4>
+                    </div>
+                    <br>
+                    <p>Available Apartments</p>
+                </div>
+                <div class="count">
+                    <div class="sat canim">
+                            <span class="material-icons-outlined description-icon">
+                                description
+                            </span>
+
+                        <h4>{{ signed }}</h4>
+                    </div>
+                    <br>
+                    <p>Signed Contracts</p>
+                </div>
+                <a href="{% url 'reviews' %}" class="count">
+                    <div class="sat">
+                            <span class="material-icons rating">
+                                sentiment_very_satisfied
+                            </span>
+                        <h4>
+                            <text id="ratin-g">0</text>
+                            / 10
+                        </h4>
+                    </div>
+                    <br>
+                    <p>Total Rating</p>
+                </a>
+            </div>
+            <h3>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
+                massa. Cum sociis natoque penatibus et magnis dis parturient montes
+
+            </h3>
+        </div>
+    </section>
+
+    <section class="mt-3 container">
+        <a href="{% url "search" %}" class="offers-link">
+            <h3>Our Offers</h3>
+            <i class="fa-solid fa-arrow-right fa-xl"></i>
+        </a>
+
+        <div class="main ">
+
+            {% for item in items %}
+                <a href="{{ item.get_absolute_url }}" class="item-card">
+
+                    <div class="img-wrapper">
+                        <img class="unselectable img-Q"
+                             src="{{ item.first_image }}"
+                             alt="">
+                    </div>
+                    <div class="card-info">
+                        <div class="card-title">{{ item.title }}</div>
+
+                        <div class="card-info2">
+                            <div class="mini-div inf"><i class="route"></i> {{ item.city }}, {{ item.country }}</div>
+                            <div class="mini-div inf"><i class="fa-solid fa-expand"></i>{{ item.area }} m²</div>
+                            <div class="mini-div text">{{ item.body }}
+                            </div>
+                            <hr>
+                            <div class="price">$ {{ item.price }}</div>
+                        </div>
+                    </div>
+
+                </a>
+            {% endfor %}
+
+
+        </div>
+    </section>
+
+    <script>
+        const navbar = document.getElementById("navbar")
+        navbar.classList.remove("scrolled")
+        navbar.classList.remove("shadow")
+        navbar.classList.add("white-text")
+        window.addEventListener("scroll", function () {
+            var myDiv = document.getElementsByClassName("nav-background")[0];
+            var scrollPosition = window.scrollY;
+
+            if (scrollPosition > 0) {
+                myDiv.classList.add("scrolled"); // Apply new class for changed background
+                myDiv.classList.add("shadow"); // Apply new class for changed background
+                myDiv.classList.remove("white-text"); // Apply new class for changed background
+            } else {
+                myDiv.classList.remove("scrolled"); // Remove class if scrolled back to top
+                myDiv.classList.remove("shadow"); // Remove class if scrolled back to top
+                myDiv.classList.add("white-text"); // Remove class if scrolled back to top
+            }
+        });
+
+    </script>
+
+    <script>
+        const sat = document.getElementById("satisfied")
+        const avRating = document.getElementById("ratin-g")
+        fetch("api/get-average-rating/")
+            .then(response => response.json())
+            .then(data => {
+                sat.innerText = data.satisfied
+                avRating.innerText = data.rating
+                console.log(sat)
+                console.log(avRating)
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    </script>
+{% endblock %}

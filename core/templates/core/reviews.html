@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% block title %}
+    Reviews
+{% endblock %}
+{% block content %}
+    {% load static %}
+
+
+
+    <section class="about-container shadow">
+        {% if not reviewed and request.user.is_authenticated %}
+            <form action="" class="">
+                <div class="review shadow">
+                    <div class="review-user">
+                        {{ request.user.get_name }}
+                    </div>
+                    <div class="review-rating">{% include "rating.html" %}</div>
+                    <label for="body">Message</label>
+                    <textarea class="review-body" name="review_body" id="body" rows="5" required></textarea>
+                    <button class="main-btn" type="submit">Send</button>
+                </div>
+            </form>
+        {% endif %}
+
+        <div id="reviews">
+            {% if reviewed %}
+                <div class="review shadow" id="user-review">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="review-user">
+                            {{ reviewed.user.get_name }}
+                        </div>
+
+                        <div class="edit-btn-div">
+                            <button id="edit-btn">Edit</button>
+                        </div>
+                        <div class="save-btn-div ">
+                            <button id="save-btn" class="hidden">Save</button>
+                        </div>
+                        <div class="review-rating"
+                             id="s-static">{% include "rating-s.html" with review=reviewed %}</div>
+                        <div class="review-rating d-hidden"
+                             id="s-form">{% include "rating.html" with rating=reviewed.rating %}</div>
+                        <span id="review-body">{{ reviewed.review }}</span>
+                    </form>
+
+                </div>
+            {% endif %}
+            {% for review in paginator_item_list %}
+                <div class="review shadow">
+                    <div class="review-user">
+                        {{ review.user.get_name }}
+                    </div>
+                    <div class="review-rating">{% include "rating-s.html" %}</div>
+
+                    <span>{{ review.review }}</span>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+
+        {% include "paginator.html" %}
+    </section>
+    <script src="{% static "js/rating-static.js" %}"></script>
+    <script src="{% static "js/rating.js" %}"></script>
+
+{% endblock %}

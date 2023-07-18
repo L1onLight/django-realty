@@ -1,0 +1,142 @@
+{% extends 'main.html' %}
+{% block title %}
+    {{ item.title }}
+{% endblock %}
+{% block content %}
+    {% load static %}
+    <style>
+        .secondary-images img:nth-child(n+4) {
+            display: none
+        }
+    </style>
+    <section class="item-container shadow">
+        <div class="item-title">
+            <div id="title">
+                <h4>{{ item.title }}</h4>
+            </div>
+        </div>
+        <div class="loc-price">
+            <h5><span class="material-icons-outlined">place</span> {{ item.city }}, {{ item.country }}</h5>
+            <h5 class="price">$ {{ item.price }}</h5>
+        </div>
+        <div class="image-viewer">
+            <div class="arrows"><span class="material-icons" id="prevBtn">arrow_circle_left</span><span
+                    class="material-icons" id="nextBtn">arrow_circle_right</span></div>
+            <div class="image-wrapper">
+                <div class="main-view">
+                    <img id="mainImageViewer" src="{{ item.first_image }}">
+                </div>
+                <div class="secondary-view-wrapper">
+                    <div class="secondary-view" id="carousel" onwheel="handleScroll()">
+                        {% for img in item.all_images %}
+                            <img class="secondary-img {% if forloop.first %}
+                            active-carousel
+                            {% endif %} "
+                                 onclick="changeMainImage(this)"
+                                 src="{{ img }}">
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="description">
+            <div id="desc-code">
+                <h6>
+                    <text>Code:</text>
+                    {{ item.id }}
+                </h6>
+                {% if request.user.is_authenticated %}
+                    <span class="material-icons-outlined {% if fav %}
+loved
+                {% endif %} " id="favBtn"
+                          onclick="addFav(this, '{{ item.slug }}')">favorite</span>
+                {% endif %}
+            </div>
+
+            <div class="description-item">
+                <strong>Location</strong>
+                <div class="location">
+                    <div class="mini-loc"><span>Country:</span> {{ item.country }}</div>
+                    <div class="mini-loc"><span>City:</span> {{ item.city }}</div>
+                    <div class="mini-loc"><span>State:</span> {{ item.state }}</div>
+                    <div class="mini-loc"><span>Address:</span> {{ item.address }}</div>
+                </div>
+            </div>
+            <div class="description-item">
+                <strong>Apartment parameters</strong>
+                <div class="location">
+                    <div class="mini-loc"><span>Total area:</span> {{ item.area }} m²</div>
+                    <div class="mini-loc"><span>Bedrooms:</span> {{ item.bedrooms }}</div>
+                    <div class="mini-loc"><span>Bathrooms:</span> {{ item.baths }}</div>
+                    <div class="mini-loc"><span>Pets:</span> {% if item.pets %}Yes{% else %}No{% endif %}</div>
+                </div>
+            </div>
+            <div class="description-item">
+                <strong>Description</strong>
+                <p class="m-0">{{ item.body }}</p>
+            </div>
+        </div>
+        {% if not request.user.is_authenticated %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="contact-form">
+
+                    <h4 class="text-center">Contact Seller</h4>
+                    <div class="form-wrapper">
+                        <div class="form-input">
+                            <label for="name" class="material-icons-outlined"> account_circle</label>
+                            <input type="text" name="name" id="name" placeholder="Name" required>
+                        </div>
+                        <div class="form-input">
+                            <label for="email" class="material-icons-outlined"> email </label>
+                            <input type="email" name="email" id="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-input">
+                            <label for="phone" class="material-icons-outlined"> phone_android
+                            </label>
+                            <input id="phone" type="tel" name="phone" placeholder="Phone" required/>
+                        </div>
+                        <input type="hidden" value="{{ item.id }}">
+                        <input type="hidden" value="{{ item.get_absolute_url }}">
+                        <div class="message-box">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="3" required></textarea>
+                        </div>
+                        <div>
+                            <button type="submit">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% else %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="contact-form">
+
+                    <h4 class="text-center">Contact Seller</h4>
+                    <div class="form-wrapper">
+                        <input type="hidden" name="name" id="name" placeholder="Name" value="{{ request.user.email }}">
+                        <input type="hidden" name="email" id="email" placeholder="Email"
+                               value="{{ request.user.first_name }}">
+                        <input id="phone" type="hidden" name="phone" placeholder="Phone"
+                               value="{{ request.user.phone }}"/>
+                        <input type="hidden" value="{{ item.id }}">
+                        <input type="hidden" value="{{ item.slug }}">
+                        <input type="hidden" value="{{ item.get_absolute_url }}">
+                        <div class="message-box">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="3" required></textarea>
+                        </div>
+                        <div>
+                            <button type="submit">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    </section>
+    <script src="{% static 'js/itemViewer.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+    Add Object
+{% endblock %}
+{% block content %}
+
+    <style>
+        .about-container {
+            padding: 0;
+        }
+    </style>
+    <section class="about-container shadow">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-wrapper">
+                <div id="profile-first-wrapper">
+                    {% include 'core/profile-nav.html' %}
+
+                </div>
+                <div id="profile-second-wrapper" class=" profile-second-wrapper add">
+                    <div class="adding">
+
+                        <div class="input-div">
+                            <label for="title" class="material-icons-outlined">title</label>
+                            <input type="text" id="title" name="title" placeholder="Title" required>
+                        </div>
+                        <div class="input-div">
+                            <label for="country" class="material-icons-outlined">location_on</label>
+                            <input type="text" id="country" name="country" placeholder="Country" required>
+                        </div>
+                        <div class="input-div">
+                            <label for="city" class="material-icons-outlined">villa</label>
+                            <input type="text" id="city" name="city" placeholder="City" required>
+                        </div>
+                        <div class="input-div">
+                            <label for="state" class="material-icons-outlined">public</label>
+                            <input type="text" id="state" name="state" placeholder="State" required>
+                        </div>
+                        <div class="input-div">
+                            <label for="address" class="material-icons-outlined">signpost</label>
+                            <input type="text" id="address" name="address" placeholder="Address" required>
+                        </div>
+                        <div class="input-div">
+                            <label for="total_area" class="material-icons-outlined">dashboard</label>
+                            <input type="number" id="total_area" name="total_area" placeholder="Total Area" required
+                                   min="0">
+
+                        </div>
+                        <div class="input-div">
+                            <label for="bedrooms" class="material-icons-outlined">weekend</label>
+                            <input type="number" id="bedrooms" name="bedrooms" placeholder="Bedrooms" required min="0">
+                        </div>
+                        <div class="input-div">
+                            <label for="bathrooms" class="material-icons-outlined">bathtub</label>
+                            <input type="number" id="bathrooms" name="bathrooms" placeholder="Bathrooms" required
+                                   min="0">
+                        </div>
+                        <div class="input-div">
+                            <label for="price" class="material-icons-outlined">attach_money</label>
+                            <input type="number" id="price" name="price" required placeholder="Price in $" min="0">
+                        </div>
+                        <div class="input-div-2 test">
+                            <label for="images">Images</label>
+                            <input type="file" multiple id="images" required name="images">
+                        </div>
+                        <div class="input-div-2">
+                            <label for="pets">Pets</label>
+                            <input type="checkbox" id="pets" name="pets">
+                        </div>
+
+
+                    </div>
+                    <div class="input-div-2 text">
+                        <label for="body">Object Body</label>
+                        <textarea name="body" id="body" cols="30" rows="5" required></textarea>
+                    </div>
+                    <button id="addObject">Submit</button>
+                </div>
+            </div>
+        </form>
+
+
+    </section>
+
+
+    <script src="{% static 'js/prof_archive.js' %}"></script>
+{% endblock %}

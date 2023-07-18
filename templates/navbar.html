@@ -1,0 +1,39 @@
+<navbar>
+    <!-- <nav class="mob-bg"></nav> -->
+    <nav class="nav-background scrolled shadow " id="navbar">
+        <div class="nav-bar">
+            <div class="nav-logo h-100">
+                <a href="{% url "home" %}" class="logo-text">S T E L L A R</a>
+
+                <div class="image-container">
+                    <!-- <a href=""><img
+                            src="https://github.com/L1onLight/Mainneck/blob/main/static/logo.png?raw=true"
+                            alt="Original Image" /></a> -->
+                </div>
+            </div>
+            <div class="mob-links-btn" id="dropdownBtn">
+                <i class="fa-solid fa-bars fa-2xl"></i>
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'search' %}">Search</a>
+                <a href="{% url 'profile' %}">Profile</a>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url "logout" %}">Log Out</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</navbar>
+<div class="mob-dropdown d-hidden" id="dropdown">
+    <div class="position-relative">
+        <div class="mob-links">
+            <a href="{% url "home" %}" class="active">Home</a>
+            <a href="{% url 'search' %}">Search</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url "logout" %}">Log Out</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+{% extends 'main.html' %}
+{% block title %}
+    Profile Information
+{% endblock %}
+{% block content %}
+
+    <style>
+        .about-container {
+            padding: 0;
+        }
+    </style>
+    <section class="about-container shadow">
+        <div class="profile-wrapper">
+            <div id="profile-first-wrapper">
+                {% include 'core/profile-nav.html' %}
+
+            </div>
+            <div class="profile-second-wrapper " id="acc-div">
+                <div id="div-wrapper">
+                    <div id="form-main">
+                        <div class="profile-second">
+                            <div class="tem" id="user-data">
+                                <span><strong>Email: </strong></span>
+                                <span>{{ request.user.email }}</span>
+                                <span><strong>First Name: </strong></span>
+                                <span>{{ request.user.first_name }}</span>
+                                <span><strong>Last Name: </strong></span>
+                                <span>{{ request.user.last_name }}</span>
+                                <span><strong>Phone: </strong></span>
+                                <span>{{ request.user.phone }}</span>
+                            </div>
+                        </div>
+                        <button class="w-50 main-btn" id="main-btn">Edit</button>
+                    </div>
+                </div>
+                <div id="form-wrapper" class="hidden">
+                    <form action="" method="post" id="form-main">
+                        {% csrf_token %}
+                        <div class="profile-second">
+                            <div class="tem" id="user-data">
+                                <label for="email"><strong>Email: </strong> </label>
+                                <input class="us-input" type="email" id="email" name="email"
+                                       value="{{ request.user.email }}">
+                                <label for="first_name"><strong>First Name: </strong> </label>
+                                <input class="us-input" type="text" id="first_name" name="first_name"
+                                       value="{{ request.user.first_name }}">
+                                <label for="last_name"><strong>Last Name: </strong> </label>
+                                <input class="us-input" type="text" id="last_name" name="last_name"
+                                       value="{{ request.user.last_name }}">
+                                <label for="phone"><strong>Phone: </strong> </label>
+                                <input class="us-input" type="text" id="phone" name="phone"
+                                       value="{{ request.user.phone }}">
+                            </div>
+                        </div>
+                        <button class="w-75 main-btn" type="submit">Save</button>
+                        <button class="w-75 main-btn" id="cancel">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <script>
+        const mainBtn = document.getElementById("main-btn");
+        const cancelBtn = document.getElementById("cancel")
+        const mainDiv = document.getElementById("div-wrapper");
+        const formDiv = document.getElementById("form-wrapper");
+        mainBtn.onclick = function () {
+            mainDiv.classList.add("hidden")
+            formDiv.classList.remove("hidden")
+        }
+        cancelBtn.onclick = function (e) {
+            event.preventDefault()
+            mainDiv.classList.remove("hidden")
+            formDiv.classList.add("hidden")
+        }
+
+    </script>
+
+
+{% endblock %}

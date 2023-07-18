@@ -1,0 +1,114 @@
+{% extends 'main.html' %}
+{% block title %}
+    Favorites
+{% endblock %}
+{% block content %}
+
+    <style>
+        .about-container {
+            padding: 0;
+        }
+    </style>
+    <section class="about-container shadow">
+        <div class="profile-wrapper">
+            <div id="profile-first-wrapper">{% include 'core/profile-nav.html' %}</div>
+            <div id="profile-second-wrapper" class="profile-second-wrapper">
+                <div class="fav-search-bar">
+                    <form action="">
+                        <div id="fav-search">
+                            <input type="text" id="" name="query" placeholder="Title or City">
+                            <label for="" class="sb">
+                                <button class="material-icons">
+                                    search
+                                </button>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="wrapper1">
+
+                    {% for item in paginator_item_list %}
+                        <div class="profile-second " id="fav-div">
+                            <div class="item-card fav">
+                                <a href="{{ item.get_absolute_url }}">
+                                    <div class="img-wrapper">
+                                        <img class="unselectable img-Q"
+                                             src="{{ item.first_image }}" alt="">
+                                    </div>
+                                    <div class="card-info">
+                                        <div class="card-title">{{ item.title }}</div>
+
+                                        <div class="card-info2">
+                                            <div class="mini-div inf"><i
+                                                    class="route"></i> {{ item.city }}, {{ item.country }}</div>
+                                            <div class="mini-div inf"><i class="fa-solid fa-expand"></i>28²</div>
+                                            <div class="mini-div text">{{ item.body }}
+                                            </div>
+                                            <hr>
+                                            <div class="price">$ {{ item.price }}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <button class="w-100 del-btn" onclick="removeFav(this, 'warning', '{{ item.slug }}')">
+                                    Remove
+                                </button>
+
+
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                </div>
+                {% include "paginator.html" %}
+            </div>
+        </div>
+
+
+    </section>
+    <script>
+        const mainBtn = document.getElementById("main-btn");
+        const cancelBtn = document.getElementById("cancel")
+        const mainDiv = document.getElementById("div-wrapper");
+        const formDiv = document.getElementById("form-wrapper");
+        mainBtn.onclick = function () {
+            mainDiv.classList.add("hidden")
+            formDiv.classList.remove("hidden")
+        }
+        cancelBtn.onclick = function (event) {
+            event.preventDefault()
+            mainDiv.classList.remove("hidden")
+            formDiv.classList.add("hidden")
+        }
+
+    </script>
+    <script>
+        const favBtn = document.getElementById("fav-btn")
+        const favDiv = document.getElementById("profile-second-wrapper")
+        favBtn.addEventListener('click', function () {
+            hideOtherDivs(favDiv)
+            favDiv.classList.toggle("hidden")
+        })
+        const accBtn = document.getElementById("acc-btn")
+        const accDiv = document.getElementById("acc-div")
+        accBtn.addEventListener('click', function () {
+            hideOtherDivs(accDiv)
+            accDiv.classList.toggle("hidden")
+        })
+
+
+        function hideOtherDivs(favDiv) {
+            const allDivs = document.getElementsByClassName("profile-second-wrapper")
+            for (let index = 0; index < allDivs.length; index++) {
+                const element = allDivs[index];
+                if (element !== favDiv) {
+                    element.classList.add('hidden')
+                }
+            }
+        }
+
+
+    </script>
+
+
+{% endblock %}

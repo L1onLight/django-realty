@@ -1,0 +1,27 @@
+{% if paginator.count > p_count %}
+    <div class="paginator">
+        <div class="pagination">
+
+            {% if paginator_item_list.has_previous %}
+                <a href="?page=1" class="">&laquo;
+                    First</a>
+                <a href="?page={{ paginator_item_list.previous_page_number }}" class="">
+                    {{ paginator_item_list.previous_page_number }}</a>
+            {% else %}
+                <a href="" class="disabled">&laquo; First</a>
+            {% endif %}
+            <a href="?page={{ paginator_item_list.number }}"
+               class="active">{{ paginator_item_list.number }}</a>
+            {% if paginator_item_list.has_next %}
+                <a href="?page={{ paginator_item_list.next_page_number }}">{{ paginator_item_list.next_page_number }}</a>
+
+            {% endif %}
+            {% if paginator_item_list.has_next %}
+                <a href="?page={{ paginator.num_pages }}">Last &raquo;</a>
+            {% else %}
+                <a href="" class="disabled">Last &raquo;</a>
+
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

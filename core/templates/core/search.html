@@ -1,0 +1,154 @@
+{% extends "main.html" %}
+{% block title %}
+    Search
+{% endblock %}
+{% block content %}
+    <style>
+        .about-container {
+            padding: 0;
+        }
+
+        .profile-wrapper {
+            display: block;
+        }
+
+        #profile-first-wrapper {
+            width: unset;
+            max-width: unset;
+            padding-bottom: 15px;
+        }
+
+        #profile-first-wrapper button {
+            max-width: 250px;
+        }
+
+        .search-filters {
+            flex: 0 0 50%;
+        }
+
+        .profile-second-wrapper .wrapper1 {
+            justify-content: space-evenly;
+        }
+
+
+        @media only screen and (min-width: 800px) {
+            .profile-second {
+                flex: 0 0 32.5%;
+                /* flex-basis: 33%; */
+            }
+
+
+            .wrapper1 {
+                gap: 1% !important;
+            }
+
+            .profile-second-wrapper .wrapper1 {
+                justify-content: unset;
+            }
+        }
+    </style>
+
+    <section class="about-container shadow">
+        <div class="profile-wrapper">
+            <form action="" id="profile-first-wrapper">
+                <div class="flex-search">
+                    <div class="search-filters">
+                        <div class="search-wrapper">
+                            <div>
+                                <label for="city" class="material-icons">location_city</label>
+                            </div>
+                            <input id="city" type="text" placeholder="City" list="city_list" name="city"
+                                   value="{{ request.GET.city }}">
+                            {#                            <datalist id="city_list">#}
+                            {#                                <option value="Warszawa">Warsaw</option>#}
+                            {#                                <option value="Kraków">Krakow</option>#}
+                            {#                                <option value="Łódź">Lodz</option>#}
+                            {#                            </datalist>#}
+                        </div>
+                    </div>
+                    <div class="search-filters">
+                        <div class="search-wrapper">
+                            <div>
+                                <label for="street" class="material-icons">signpost</label>
+                            </div>
+                            <input id="street" type="text" placeholder="Street" list="street_list" name="street"
+                                   value="{{ request.GET.street }}">
+                            {#                            <datalist id="street_list">#}
+                            {#                                <option value="Nowy Świat">Nowy Swiat</option>#}
+                            {#                                <option value="Miodowa">Miodowa</option>#}
+                            {#                                <option value="Rosoła Street">Rosola Street</option>#}
+                            {#                            </datalist>#}
+                        </div>
+                    </div>
+                    <div class="search-filters">
+                        <div class="search-wrapper">
+                            <div>
+                                <label for="rooms" class="material-icons">weekend</label>
+                            </div>
+                            <input id="rooms" type="number" placeholder="Number of Rooms" list="rooms_list"
+                                   name="rooms" value="{{ request.GET.rooms }}">
+
+                        </div>
+                    </div>
+                    <div class="search-filters">
+                        <div class="search-wrapper sqm">
+                            <div>
+                                <label for="sqm" class="material-icons">dashboard</label>
+                            </div>
+                            <input id="sqm" type="number" placeholder="Min sq. m." name="sqm_min"
+                                   value="{{ request.GET.sqm_min }}">
+                            <input type="number" placeholder="Max sq. m" name="sqm_max"
+                                   value="{{ request.GET.sqm_max }}">
+
+                        </div>
+                    </div>
+                </div>
+                <button type="submit">Search</button>
+
+            </form>
+            <script>
+                const form = document.getElementById("profile-first-wrapper")
+                form.addEventListener("submit", function (e) {
+                    const elements = form.elements;
+                    for (let index = 0; index < elements.length; index++) {
+                        const el = elements[index];
+                        if (el.tagName === "INPUT") {
+                            if (el.value.trim() === '') {
+                                el.setAttribute('disabled', '')
+                                console.log(el);
+                            }
+                        }
+                    }
+                });
+            </script>
+            <div id="profile-second-wrapper" class="profile-second-wrapper">
+                <div class="search-item-wrapper">
+                    {% for item in paginator_item_list %}
+                        <a href="{{ item.get_absolute_url }}" class="item-card">
+                            <div class="img-wrapper">
+                                <img class="unselectable img-Q" src="{{ item.first_image }}" alt="">
+                            </div>
+                            <div class="card-info">
+                                <div class="card-title">{{ item.title }}</div>
+
+                                <div class="card-info2">
+                                    <div class="mini-div inf"><i class="route"></i> {{ item.city }}, {{ item.country }}
+                                    </div>
+                                    <div class="mini-div inf"><i class="fa-solid fa-expand"></i>{{ item.area }}²</div>
+                                    <div class="mini-div text">{{ item.body }}
+                                    </div>
+                                    <hr>
+                                    <div class="price">$ {{ item.price }}</div>
+                                </div>
+                            </div>
+
+                        </a>
+                    {% endfor %}
+
+
+                </div>
+                {% include "paginator.html" %}
+            </div>
+
+        </div>
+    </section>{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+{% block title %}
+    Privacy Policy
+{% endblock %}
+{% block content %}
+
+
+
+    <section class="about-container shadow">
+        <h4 id="faq-h4">Privacy Policy</h4>
+        <div id="faq">
+            <div class="faq-div">
+                <span>Voluntary Information Collection</span>
+                <div class="faq-info closed">
+                    We collect personal information from you when you voluntarily provide it to us. This may include
+                    your name, contact details, email address, and any other information you choose to share with
+                    us. We use this information to provide you with the services you request, such as property
+                    listings, real estate advice, or property valuation. We may also use your personal information
+                    to communicate with you, respond to your inquiries, and send you relevant information about
+                    properties that match your preferences.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Safeguarding Your Personal Information</span>
+                <div class="faq-info closed">
+                    At Stellar Realty Agency, we understand the importance of safeguarding your personal
+                    information. We have implemented industry-standard security measures to protect your data
+                    against unauthorized access, alteration, disclosure, or destruction. Our website is encrypted to
+                    ensure the secure transmission of your information, and we regularly update our security
+                    protocols to stay ahead of emerging threats.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Trusted Partners</span>
+                <div class="faq-info closed">
+                    We may share your personal information with trusted third parties who assist us in providing our
+                    services. These third parties may include property appraisers, legal advisors, lenders, or other
+                    real estate professionals involved in your property transactions. However, we only disclose the
+                    necessary information required for them to perform their respective services, and we ensure that
+                    they have adequate safeguards in place to protect your data.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Legal Obligations and Business Transfers</span>
+                <div class="faq-info closed">
+                    We may also disclose your personal information if required by law or in response to a valid
+                    legal request, such as a court order or government inquiry. Additionally, in the event of a
+                    merger, acquisition, or sale of our business assets, your personal information may be
+                    transferred to the relevant parties involved.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Respecting Your Privacy</span>
+                <div class="faq-info closed">
+                    Stellar Realty Agency does not sell, rent, or lease your personal information to third parties
+                    for marketing purposes. We may, however, use non-personal information, such as statistical data
+                    or aggregated demographics, for marketing and research purposes.
+                </div>
+            </div>
+            <div class="faq-div">
+                <span>Privacy Matters</span>
+                <div class="faq-info closed">
+                    In conclusion, your privacy is of utmost importance to us at Stellar Realty Agency. We take
+                    reasonable measures to protect your personal information and handle it responsibly. By using our
+                    services, you consent to the collection, use, and disclosure of your personal information as
+                    described in this Privacy Policy. If you have any questions or concerns about our privacy
+                    practices, please contact us.
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const faq = document.getElementById("faq")
+        const spans = faq.querySelectorAll("span")
+        for (let index = 0; index < spans.length; index++) {
+            const span = spans[index];
+            span.addEventListener('click', function () {
+                span.classList.toggle("active")
+                span.nextElementSibling.classList.toggle("closed")
+            })
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+    Messages
+{% endblock %}
+{% block content %}
+
+    <style>
+        .about-container {
+            padding: 0;
+        }
+    </style>
+    <section class="about-container shadow">
+        <div class="profile-wrapper">
+            <div id="profile-first-wrapper">
+                {% include 'core/profile-nav.html' %}
+
+            </div>
+            <div id="profile-second-wrapper" class="profile-second-wrapper">
+                <div class="fav-search-bar">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div id="fav-search">
+                            <input type="text" id="search" placeholder="Email or Phone" name="e_phone">
+                            <label for="search" class="sb">
+                                <button class="material-icons" type="submit">
+                                    search
+                                </button>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="message-wrapper">
+                    {% for message in paginator_item_list %}
+                        <div class="message">
+                            <div class="more-btn">
+                                <div class="btn-wrapper"><span class="material-icons btn-more">more_horiz</span>
+
+                                </div>
+                            </div>
+                            <div class="client-info">
+                                <span><strong>Email:</strong></span>
+                                <span>{{ message.get_email }}</span>
+                                <span><strong>Phone:</strong></span>
+                                <span>{{ message.get_phone }}</span>
+                                <span><strong>Full Name:</strong></span>
+                                <span>{{ message.get_name }}</span>
+                                <span><strong>Message sent:</strong></span>
+                                <span>{{ message.created|date:'d-m-Y H:i' }} </span>
+                                <span><strong>Apartments:</strong></span>
+                                <span><a href="{{ message.product.get_absolute_url }}" target="_blank">Link</a></span>
+                            </div>
+                            <div class="client-message">
+                                <span><strong>Message</strong></span>
+                                <div class="message-text truncated">
+                                    <div class="msg-wrapper pointer "><p
+                                            class="main-text hidden">{{ message.message_body }}</p></div>
+                                </div>
+
+                            </div>
+                            <div class="d-hidden">
+                                <span id="message-id">{{ message.id }}</span>
+                                <span id="message-item-slug">{{ message.product.slug }}</span>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+                {% include 'paginator.html' %}
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <script src="{% static 'js/prof_messages.js' %}"></script>
+{% endblock %}

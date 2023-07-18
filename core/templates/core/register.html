@@ -1,0 +1,98 @@
+{% extends 'main.html' %}
+{% block title %}
+    Register
+{% endblock %}
+{% block content %}
+    {% load static %}
+    <section class="auth-container shadow">
+        <div id="user-icon" class="reg">
+            <img src="{% static 'images/sil.png' %}" alt="">
+            <!-- <span class="material-icons">account_circle</span> -->
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="auth-wrapper reg">
+
+                <h4>Register</h4>
+                <div class="input-container-auth">
+                    <label for="username" class="material-icons">account_circle</label>
+                    <div class="input-wrapper">
+                        <input id="username" type="text" placeholder="Email" required name="username">
+                    </div>
+                </div>
+                <div class="input-container-auth">
+                    <label for="first_name" class="material-icons">badge</label>
+                    <div class="input-wrapper">
+                        <input id="first_name" type="text" placeholder="First Name" required name="first_name">
+                    </div>
+                </div>
+                <div class="input-container-auth">
+                    <label for="last_name" class="material-icons">badge</label>
+                    <div class="input-wrapper">
+                        <input id="last_name" type="text" placeholder="Last Name" required name="last_name">
+                    </div>
+                </div>
+                <div class="input-container-auth">
+                    <label for="phone" class="material-icons">phone_iphone</label>
+                    <div class="input-wrapper">
+                        <input id="phone" type="text" placeholder="Phone number" required name="phone">
+                    </div>
+                </div>
+                <div class="input-container-auth">
+                    <label for="password" class="material-icons">lock</label>
+
+                    <div class="input-wrapper ">
+                        <input id="password" class="pass" type="password" placeholder="Password" required
+                               name="password">
+                        <span class="material-icons-outlined visibility">visibility_off</span>
+
+                    </div>
+                </div>
+                <div class="input-container-auth">
+                    <label for="rep-password" class="material-icons">lock</label>
+
+                    <div class="input-wrapper ">
+                        <input id="rep-password" class="pass" type="password" placeholder="Repeat password"
+                               required>
+                        <span class="material-icons-outlined visibility">visibility_off</span>
+
+                    </div>
+                </div>
+                <button type="submit">Register</button>
+
+                <p>Already have an account?</p>
+                <a href="{% url 'login' %}">Log In</a>
+                <div class="errors">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </section>
+    <script>
+        const visBtn = document.getElementsByClassName("visibility")
+
+        function visibilityChange(btn) {
+            const input = btn.previousElementSibling
+            console.log(input);
+            if (btn.textContent === "visibility") {
+                btn.textContent = "visibility_off"
+                input.type = "password"
+            } else if (btn.textContent === "visibility_off") {
+                btn.textContent = 'visibility'
+                input.type = "text"
+
+            }
+        }
+
+        for (let index = 0; index < visBtn.length; index++) {
+            const element = visBtn[index];
+            element.addEventListener("click", function () {
+                visibilityChange(element)
+            })
+        }
+    </script>
+{% endblock %}
