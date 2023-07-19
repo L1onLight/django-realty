@@ -285,6 +285,7 @@ pyrightconfig.json
 *.pyc
 
 media
+media/*
 # Environments
 .env
 
