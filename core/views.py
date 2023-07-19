@@ -93,17 +93,11 @@ def profile(request):
         query = request.GET.get("query") if not "" else None
         favs = Favorite.objects.get(user=request.user).fav_product.all()
         if query:
-            print(favs)
-            print(query)
             favs = favs.filter(Q(title__icontains=query) | Q(city__icontains=query))
-
-            for item in favs:
-                print(item.title)
 
         p = Paginator(favs.distinct(), PAGINATION_COUNT)
         favs = p.get_page(request.GET.get("page"))
 
-        print(p.count)
         context = {'paginator_item_list': favs, "p_count": PAGINATION_COUNT, "paginator": p}
 
     except Favorite.DoesNotExist:
@@ -158,7 +152,6 @@ def profile_messages(request):
 @agent_only
 def profile_archive(request):
     archived = Message.objects.filter(is_archive=True, product__agent=request.user)
-    print(archived)
     p = Paginator(archived, PAGINATION_COUNT)
     paginator_item_list = p.get_page(request.GET.get("page"))
     context = {'paginator_item_list': paginator_item_list, "p_count": PAGINATION_COUNT, "paginator": p}
@@ -172,9 +165,6 @@ def add_object(request):
         pets = request.POST.get("pets")
         pets = True if pets == 'on' else False
 
-        print(pets)
-        print(request.POST)
-        # print(request.FILES)
         image_list = request.FILES.getlist("images")
         obj = Item.objects.create(title=request.POST.get("title"),
                                   body=request.POST.get("body"),
@@ -195,7 +185,7 @@ def add_object(request):
             img_item = Image.objects.create(img=image)
             obj.itemImg.add(img_item)
         obj.save()
-        return redirect(f"/item/{obj.slug}")
+        return redirect("item", obj.slug)
     context = {}
     return render(request, "core/profile-add-object.html", context)
 
@@ -204,14 +194,11 @@ def add_object(request):
 def log_in(request):
     if request.method == "POST":
         remember = True if request.POST.get("remember") == "on" else False
-        print(remember)
         user = auth.authenticate(request, email=request.POST["username"], password=request.POST['password'])
         if user:
             auth.login(request, user)
-            print(request.session.get_expiry_age())
             if not remember:
                 request.session.set_expiry(0)
-            print(request.session.get_expiry_age())
             return redirect('home')
         else:
             messages.error(request, 'Email or Password does not exist.')
@@ -270,12 +257,10 @@ def reviews(request):
         except AttributeError:
             pass
         if request.method == "POST" and request.user.is_authenticated:
-            print(request.POST)
             edit_form = request.POST.get("review_body_edit")
             rating = request.POST.get("rating")
             usual_form = request.POST.get("review_body")
             if edit_form and rating:
-                print(reviewed.review)
                 reviewed.review = edit_form
                 reviewed.rating = rating
                 reviewed.save()

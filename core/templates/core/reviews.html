@@ -9,7 +9,8 @@
 
     <section class="about-container shadow">
         {% if not reviewed and request.user.is_authenticated %}
-            <form action="" class="">
+            <form action="" method="post" class="">
+                {% csrf_token %}
                 <div class="review shadow">
                     <div class="review-user">
                         {{ request.user.get_name }}
