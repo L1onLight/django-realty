@@ -744,7 +744,8 @@ footer {
         display: flex;
         margin: 10px 30px;
         /* display: none; */
-        flex: 0 0 90%;
+        flex: 0 0 85%;
+        justify-self: center;
         /* width: ; */
         /* justify-content: center; */
         align-items: center;
