@@ -11,9 +11,9 @@ DB_USER=YOUR_DB_USERNAME
 DB_PASSWORD=YOUR_DB_PASSWORD
 DB_HOST=YOUR_HOST(e.g. localhost)
 DB_PORT=YOUR_PORT(default=5432)
-Project local settings
-Install requirements:
 ```
+
+Python requirements:
 
 ```bash
 pip install -r requirements.txt
